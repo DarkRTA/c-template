@@ -1,0 +1,4 @@
+# exclude object files
+obj
+# exclude the main executable
+main
