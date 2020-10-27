@@ -1,13 +1,14 @@
-CC      = cc
-CFLAGS  = -Isrc -Ideps -I.
-LDFLAGS = 
-
-DEPS = Makefile $(shell find src deps -type f -name *.h)
+CC      := cc
+CFLAGS  := -Isrc -Ideps -I. -MMD
+LDFLAGS := 
 
 OBJ = $(patsubst %.c,obj/%.o,$(shell find src deps -type f -name *.c))
+DEPS = $(patsubst %.o,%.d,$(OBJ))
 
 .PHONY: clean all tags
 .SUFFIXES:
+
+S=@
 
 all: main
 
@@ -19,11 +20,15 @@ tags:
 		src/** \
 		deps/**
 
-obj/%.o: %.c $(DEPS)
+obj/%.o: %.c obj/%.d
 	@echo "CC   "$<
 	@mkdir -p $(shell dirname $@)
-	@$(CC) -c -o $@ $< $(CFLAGS)
+	$S$(CC) -c -o $@ $< $(CFLAGS)
+
+$(DEPS):
+
+include $(DEPS)
 
 main: $(OBJ)
 	@echo "LINK "$@
-	@$(CC) -o $@ $(OBJ) $(LDFLAGS)
+	$S$(CC) -o $@ $(OBJ) $(LDFLAGS)

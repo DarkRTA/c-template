@@ -14,9 +14,8 @@ The best way to make use of this is to clone the repo then delete the `./.git`
 folder to remove any and all commit history from this repo.
 
 The `Makefile` is set up in such a way that all c source files under `./src`
-and `./deps` are compiled for you. Modifying any header file will result in a
-full rebuild but this can be remedied with ccache. Edit the makefile to change
-compile and link flags. Everything else should be pretty self evident.
+and `./deps` are compiled for you. Edit the makefile to change compile and link
+flags. Everything else should be pretty self evident.
 
 `./deps` is used for libraries fetched with [clib](https://clibs.org). You may
 also use this for other small source code only libraries. You can use include

@@ -2,3 +2,5 @@
 obj
 # exclude the main executable
 main
+# eclude the tags file
+tags
